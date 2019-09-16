@@ -1,11 +1,13 @@
+name: Publish Docker
 on: [push]
-
 jobs:
-  build_and_publish:
+  build:
     runs-on: ubuntu-latest
-    name: Build and Publish docker
     steps:
-    - name: Lint
-      id: lint
-      uses: actions/action-builder/shell@master
-      run: make
+    - uses: actions/checkout@master
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: myDocker/repository
+        username: ${{ secrets.dockeruser }}
+        password: ${{ secrets.dockerpass }}
